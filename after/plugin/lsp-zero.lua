@@ -3,7 +3,26 @@ local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+    vim.keymap.set("n", "gd", function()
+        -- Save the original window ID
+        local original_win = vim.api.nvim_get_current_win()
+
+        -- Split window and jump to the definition
+        vim.cmd("vsplit | wincmd l")
+        vim.lsp.buf.definition()
+
+        -- Delay the following actions
+        vim.defer_fn(function()
+            -- Save the window ID where the definition is
+            local definition_win = vim.api.nvim_get_current_win()
+
+            -- Highlight the line in the definition window
+            vim.api.nvim_win_set_option(definition_win, 'cursorline', true)
+
+            -- Return to the original window
+            vim.api.nvim_set_current_win(original_win)
+        end, 100) -- Delay of 100 milliseconds
+    end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)

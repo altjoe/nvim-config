@@ -4,6 +4,7 @@ function _Source_config_lua()
     -- if already sourced return
 
     local cwd = vim.fn.getcwd() .. "/config.lua"
+
     -- if file exists
     if vim.fn.filereadable(cwd) == 0 then
         print("config.lua file does not exist in working directory")
@@ -19,7 +20,7 @@ vim.keymap.set('n', '<Leader>st', function()
     vim.cmd("rightbelow vsplit | terminal")
     vim.cmd("startinsert")
 
-    local sourced = _Source_config_lua()
+    _Source_config_lua()
 
     -- if CONDA_NAME is not nil
     if vim.env.CONDA_NAME ~= nil then

@@ -14,6 +14,7 @@ vim.keymap.set("n", "q", function()
     -- if buffer is writeable, write and quit
     -- else just quit
     if vim.bo.modifiable then
+        vim.api.nvim_command("LspZeroFormat")
         vim.api.nvim_command("w")
     end
 
