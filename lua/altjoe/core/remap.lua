@@ -4,13 +4,13 @@ print("Sourcing remap.lua")
 vim.g.mapleader = " "
 
 -- Neotree
-vim.testing1.set("n", "<leader>pt", ":Neotree toggle<CR>")
+vim.keymap.set("n", "<leader>pt", ":Neotree toggle<CR>")
 
 -- Escaping from insert mode with jk
-vim.api.nvim_set_testing1('i', 'jk', '<Esc>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
 
 -- Simple quit window
-vim.testing1.set("n", "q", function()
+vim.keymap.set("n", "q", function()
     -- if buffer is writeable, write and quit
     -- else just quit
     if vim.bo.modifiable then
@@ -22,7 +22,7 @@ vim.testing1.set("n", "q", function()
 end)
 
 -- Simple format and save
-vim.testing1.set('n', 'w', function()
+vim.keymap.set('n', 'w', function()
     -- if buffer is writeable, write and quit
     if vim.bo.modifiable then
         vim.api.nvim_command("LspZeroFormat")
@@ -31,13 +31,13 @@ vim.testing1.set('n', 'w', function()
 end)
 
 -- Simple escape from terminal mode
-vim.testing1.set("t", "<Esc><Esc>", function()
+vim.keymap.set("t", "<Esc><Esc>", function()
     vim.api.nvim_command("stopinsert")
     vim.cmd("q")
 end, { silent = true })
 
 --find and replace
-function GetHighLightedText()
+vim.keymap.set("v", "<leader>hh", function()
     -- Exit visual mode and then execute the rest of the function after a slight delay
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
 
@@ -59,24 +59,16 @@ function GetHighLightedText()
         vim.cmd('/' .. text)
         vim.defer_fn(function()
             local replace = vim.fn.input("Replace: ")
+            if replace == "" then
+                return
+            end
             vim.api.nvim_command(":%s/" .. text .. "/" .. replace .. "/g")
         end, 10) -- 10ms delay
     end, 10)     -- 10ms delay
-end
-
-vim.testing1.set("v", "<leader>hh", function()
-    -- revert from visual mode to normal mode
-    GetHighLightedText()
-
-    -- local replace = vim.fn.input("Replace: ")
-
-    -- clear highlight
-    -- vim.api.nvim_command("noh")
-
-    -- vim.api.nvim_command(":%s/" .. text .. "/" .. replace .. "/g")
-
-    -- highlight replaced text
-    -- vim.api.nvim_command("noh")
 end)
 
-vim.api.nvim_set_testing1('n', 'L', '', { noremap = true })
+-- restart copilot service
+vim.keymap.set("n", "<leader>co", ':Copilot toggle<CR>', { silent = true })
+
+-- annoying keys that i hit so remap to nothing
+vim.api.nvim_set_keymap('n', 'L', '', { noremap = true })
