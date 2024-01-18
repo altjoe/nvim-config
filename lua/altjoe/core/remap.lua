@@ -22,7 +22,7 @@ vim.keymap.set("n", "q", function()
 end)
 
 -- Simple format and save
-vim.keymap.set('n', 'w', function()
+vim.keymap.set('n', '<leader>W', function()
     -- if buffer is writeable, write and quit
     if vim.bo.modifiable then
         vim.api.nvim_command("LspZeroFormat")
