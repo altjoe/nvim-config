@@ -14,8 +14,10 @@ vim.keymap.set("n", "q", function()
     -- if buffer is writeable, write and quit
     -- else just quit
     if vim.bo.modifiable then
-        vim.api.nvim_command("LspZeroFormat")
-        vim.api.nvim_command("w")
+        -- if not a terminal buffer
+        if vim.bo.buftype == "" then
+            vim.api.nvim_command("w")
+        end
     end
 
     vim.cmd("q")
@@ -68,7 +70,11 @@ vim.keymap.set("v", "<leader>hh", function()
 end)
 
 -- restart copilot service
-vim.keymap.set("n", "<leader>co", ':Copilot toggle<CR>', { silent = true })
+vim.keymap.set("n", "<leader>co", ':Copilot! toggle<CR>', { silent = true })
 
 -- annoying keys that i hit so remap to nothing
 vim.api.nvim_set_keymap('n', 'L', '', { noremap = true })
+
+
+-- enable highlighting
+vim.api.nvim_set_keymap('n', '<leader>h', ':TSEnable highlight<CR>', { noremap = true, silent = true })
