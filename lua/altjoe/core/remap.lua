@@ -78,3 +78,4 @@ vim.api.nvim_set_keymap('n', 'L', '', { noremap = true })
 
 -- enable highlighting
 vim.api.nvim_set_keymap('n', '<leader>h', ':TSEnable highlight<CR>', { noremap = true, silent = true })
+

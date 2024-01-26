@@ -59,3 +59,47 @@ vim.keymap.set("n", "<Tab>rp", function()
 
     vim.cmd("belowright vsplit | terminal " .. pathToPython .. " %")
 end)
+
+--pytest hotkey
+--split to new terminal and run pytest
+vim.keymap.set("n", "<leader>tp", function()
+    vim.cmd("w")
+
+    _Source_config_lua()
+
+    local pathToPython = vim.g.python3_host_prog or "python3"
+
+    vim.cmd("belowright vsplit | terminal " .. pathToPython .. " -m pytest")
+end)
+
+
+
+--pytest hotkey
+--split to new terminal and run pytest
+vim.keymap.set("n", "<leader>tip", function()
+    vim.cmd("w")
+
+    _Source_config_lua()
+
+    local pathToPython = vim.g.python3_host_prog or "python3"
+
+    -- get current path
+    local path = vim.fn.expand("%:p:h")
+    -- get current file name
+    local name = vim.fn.expand("%:t")
+    local test = ""
+    -- if test not in name add it then run pytest
+    if not string.find(name, "_test") then
+        -- use test file to run pytest
+        name = name:gsub(".py", "")
+        test = path .. "/" .. name .. "_test.py"
+        -- else run pytest
+    else
+        test = path .. "/" .. name
+    end
+    print(test)
+
+    vim.cmd("belowright vsplit | terminal " .. pathToPython .. " -m pytest " .. test)
+
+    -- vim.cmd("belowright vsplit | terminal " .. pathToPython .. " -m pytest")
+end)
