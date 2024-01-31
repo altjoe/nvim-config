@@ -27,15 +27,23 @@ end)
 vim.keymap.set('n', '<leader>W', function()
     -- if buffer is writeable, write and quit
     if vim.bo.modifiable then
-        vim.api.nvim_command("LspZeroFormat")
-        vim.api.nvim_command("w")
+        function format()
+            vim.api.nvim_command("LspZeroFormat")
+            vim.api.nvim_command("w")
+        end
+
+        local status, err = pcall(format)
+        if not status then
+            -- print "writing without formatting"
+            vim.api.nvim_command("w")
+            print("writing without formatting")
+        end
     end
 end)
 
 -- Simple escape from terminal mode
 vim.keymap.set("t", "<Esc><Esc>", function()
     vim.api.nvim_command("stopinsert")
-    vim.cmd("q")
 end, { silent = true })
 
 --find and replace
