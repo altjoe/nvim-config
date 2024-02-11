@@ -20,7 +20,7 @@ vim.keymap.set("n", "q", function()
         end
     end
 
-    vim.cmd("q")
+    vim.api.nvim_command("q")
 end)
 
 -- Simple format and save
@@ -86,4 +86,3 @@ vim.api.nvim_set_keymap('n', 'L', '', { noremap = true })
 
 -- enable highlighting
 vim.api.nvim_set_keymap('n', '<leader>h', ':TSEnable highlight<CR>', { noremap = true, silent = true })
-
