@@ -86,3 +86,13 @@ vim.api.nvim_set_keymap('n', 'L', '', { noremap = true })
 
 -- enable highlighting
 vim.api.nvim_set_keymap('n', '<leader>h', ':TSEnable highlight<CR>', { noremap = true, silent = true })
+
+
+-- quick on wg vpn
+-- run the shell command in a new terminal to "sudo wg-quick up home"
+vim.keymap.set('n', '<leader>vpn', function()
+    -- open a new terminal split to the left and run the command
+    vim.cmd("rightbelow vsplit | terminal sudo wg-quick up home")
+    -- go into insert mode
+    vim.cmd("startinsert")
+end, { noremap = true, silent = true })
