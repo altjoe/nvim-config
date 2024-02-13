@@ -16,9 +16,7 @@ function OpenDefaultFileIfNeeded()
     end
 end
 
-vim.api.nvim_create_autocmd("VimEnter", {
-    pattern = "*",
-    callback = OpenDefaultFileIfNeeded,
-})
-
-vim.g.rooter_patterns = { '.git/', }
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--     pattern = "*",
+--     callback = OpenDefaultFileIfNeeded,
+-- })
