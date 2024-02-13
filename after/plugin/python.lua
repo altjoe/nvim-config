@@ -17,6 +17,8 @@ end
 
 -- Split terminal and activate conda for the current project
 vim.keymap.set('n', '<Leader>st', function()
+    -- run RooterToggle
+    -- vim.cmd("RooterToggle")
     vim.cmd("rightbelow vsplit | terminal")
     vim.cmd("startinsert")
 

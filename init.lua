@@ -21,17 +21,4 @@ vim.api.nvim_create_autocmd("VimEnter", {
     callback = OpenDefaultFileIfNeeded,
 })
 
-
-function ChangeToProjectDirectory()
-    local current_path = vim.fn.expand("%:p")
-    vim.api.nvim_command("lcd " .. current_path)
-
-    while vim.fn.isdirectory(vim.fn.getcwd() .. "/.git") == 0 and vim.fn.getcwd() ~= "/" do
-        vim.api.nvim_command("lcd ..")
-    end
-end
-
--- vim.api.nvim_create_autocmd("BufEnter", {
---     pattern = "*",
---     callback = ChangeToProjectDirectory,
--- })
+vim.g.rooter_patterns = { '.git/', }

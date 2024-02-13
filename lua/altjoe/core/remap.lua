@@ -3,13 +3,6 @@ print("Sourcing remap.lua")
 
 vim.g.mapleader = " "
 
--- Neotree
-vim.keymap.set("n", "<leader>pt", -- ":Neotree float<CR>")
-    function()
-        vim.api.nvim_command("Neotree toggle float")
-    end, { noremap = true, silent = true })
-
-
 -- Escaping from insert mode with jk
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
 
