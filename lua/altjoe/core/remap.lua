@@ -4,7 +4,11 @@ print("Sourcing remap.lua")
 vim.g.mapleader = " "
 
 -- Neotree
-vim.keymap.set("n", "<leader>pt", ":Neotree toggle<CR>")
+vim.keymap.set("n", "<leader>pt", -- ":Neotree float<CR>")
+    function()
+        vim.api.nvim_command("Neotree toggle float")
+    end, { noremap = true, silent = true })
+
 
 -- Escaping from insert mode with jk
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
@@ -95,4 +99,21 @@ vim.keymap.set('n', '<leader>vpn', function()
     vim.cmd("rightbelow vsplit | terminal sudo wg-quick up home")
     -- go into insert mode
     vim.cmd("startinsert")
+end, { noremap = true, silent = true })
+
+
+-- use the keyboard shortcut <leader>cp to copy the current file path to the clipboard
+vim.keymap.set('n', '<leader>cp', function()
+    -- get the current file path
+    local file_path = vim.fn.expand("%:p")
+    -- copy the file path to the clipboard
+    vim.fn.setreg("+", file_path)
+    -- print the file path
+    print("Copied to clipboard: " .. file_path)
+end, { noremap = true, silent = true })
+
+
+-- rooter keybind
+vim.keymap.set('n', '<leader>wd', function()
+    vim.api.nvim_command("RooterToggle")
 end, { noremap = true, silent = true })
