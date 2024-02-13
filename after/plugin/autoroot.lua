@@ -17,6 +17,36 @@ end
 
 function AutoRoot()
     -- file path
+    print('Running AutoRoot')
+    local file_dir = vim.fn.expand('%:p:h')
+
+    -- if not a file_dir then return
+    print('File directory: ' .. file_dir)
+
+
+    while not CheckIfRoot(file_dir) do
+        file_dir = GoUp(file_dir)
+        if file_dir == '/' then
+            print('No root directory found')
+            return
+        end
+    end
+    -- if working directory is already the root directory
+    if file_dir == vim.fn.getcwd() then
+        print('Already in root directory')
+        return
+    end
+    vim.cmd('cd ' .. file_dir)
+    print('Changed directory to ' .. file_dir)
+end
+
+function AutoRootDefaultToFilePath()
+    -- check if active buffer is a file
+    if vim.fn.expand('%:t') == '' then
+        print('Not a file')
+        return
+    end
+    -- file path
     local file_dir = vim.fn.expand('%:p:h')
 
     while not CheckIfRoot(file_dir) do
@@ -31,4 +61,7 @@ function AutoRoot()
     print('Changed directory to ' .. file_dir)
 end
 
--- run autocmd on file open and don't require usig the return key
+-- keybind for <leader>to use autodefault
+vim.keymap.set("n", "<leader>dw", function()
+    AutoRoot()
+end, { noremap = true, silent = true })

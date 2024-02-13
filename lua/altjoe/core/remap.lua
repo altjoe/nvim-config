@@ -13,7 +13,10 @@ vim.keymap.set("n", "q", function()
     if vim.bo.modifiable then
         -- if not a terminal buffer
         if vim.bo.buftype == "" then
-            vim.api.nvim_command("w")
+            local filename = vim.fn.expand("%:t")
+            if filename ~= "" then
+                vim.api.nvim_command("w")
+            end
         end
     end
 
@@ -107,6 +110,6 @@ end, { noremap = true, silent = true })
 
 
 -- rooter keybind
-vim.keymap.set('n', '<leader>wd', function()
-    vim.api.nvim_command("RooterToggle")
-end, { noremap = true, silent = true })
+-- vim.keymap.set('n', '<leader>wd', function()
+--     vim.api.nvim_command("RooterToggle")
+-- end, { noremap = true, silent = true })

@@ -1,4 +1,4 @@
--- local mark = require("harpoon.mark")
+--vim.api.nvim_create_autocmd({"BufEnter", "FileType" }, t local mark = require("harpoon.mark")
 AutoRoot()
 -- local ui = require("harpoon.ui")
 --

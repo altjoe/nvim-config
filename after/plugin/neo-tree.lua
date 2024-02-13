@@ -1,3 +1,6 @@
+local telescope = require("telescope")
+
+
 -- Neotree
 vim.keymap.set("n", "<leader>pt", -- ":Neotree float<CR>")
     function()
