@@ -107,9 +107,3 @@ vim.keymap.set('n', '<leader>cp', function()
     -- print the file path
     print("Copied to clipboard: " .. file_path)
 end, { noremap = true, silent = true })
-
-
--- rooter keybind
--- vim.keymap.set('n', '<leader>wd', function()
---     vim.api.nvim_command("RooterToggle")
--- end, { noremap = true, silent = true })

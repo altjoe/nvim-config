@@ -13,6 +13,10 @@ if vim.fn.expand("%:p") == "" then
     vim.api.nvim_command("e " .. defaultfile)
 end
 
+-- open nvim in normal mode
+-- vim.api.nvim_command("startinsert")
+
+
 -- vim.keymap.set("n", "<leader>Pf", function()
 --     print("Searching in " .. vim.fn.expand("~/projects/"))
 --     builtin.find_files({

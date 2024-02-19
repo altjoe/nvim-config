@@ -1,5 +1,5 @@
 
--- Split terminal vertically and run the activate rust file
+
 vim.keymap.set("n", "<Tab>rr", function()
     vim.cmd("w")
 
