@@ -4,7 +4,7 @@ vim.keymap.set('n', '<leader>pf', function()
 
     builtin.find_files({
         prompt_title = "Search files",
-        find_command = { 'fdfind', '--full-path', currentworkingdir }
+        find_command = { 'fdfind', '--full-path', currentworkingdir, '--type', 'f' }
         -- find_command = { 'fdfind', '--full-path', current_file_path_parent, 'hidden', '--exclude', '.git', '--exclude', '.cache', '--exclude', '.local', '--exclude', '.npm', '--exclude', '.cargo', '--max-depth', '5' }
         -- find_command = { 'find', '.use_libuv_file_watcher', '-type', 'f', '-not', '-path', '*/.git/*'}
         -- find_command = { 'find', '/', '-type', 'f', '-not', '-path', '*/\\.*', '-maxdepth', '3' },

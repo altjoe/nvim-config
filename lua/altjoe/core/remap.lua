@@ -61,7 +61,7 @@ vim.keymap.set("v", "<leader>hh", function()
         local end_pos = vim.api.nvim_buf_get_mark(bufnr, ">")
 
         -- Retrieve the text from the buffer
-        local lines = vim.api.nvim_buf_get_text(bufnr, start_pos[1] - 1, start_pos[2], end_pos[1] - 1, end_pos[2], {})
+        local lines = vim.api.nvim_buf_get_text(bufnr, start_pos[1] - 1, start_pos[2], end_pos[1] - 1, end_pos[2] + 1, {})
 
         -- Concatenate lines if necessary and print
         local text = table.concat(lines, '\n')
@@ -107,3 +107,20 @@ vim.keymap.set('n', '<leader>cp', function()
     -- print the file path
     print("Copied to clipboard: " .. file_path)
 end, { noremap = true, silent = true })
+<<<<<<< HEAD
+=======
+
+-- select word under cursor in visual mode
+vim.keymap.set('n', '<leader>hw', function()
+    -- if the cursor is not on the first letter of the word
+    -- use the shortcut b to move to the beginning of the word
+    if vim.fn.col('.') > 1 then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('b', true, false, true), 'n', true)
+    end
+
+    -- use the shortcut v to enter visual mode
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('v', true, false, true), 'n', true)
+    -- the shortcut e to move to the end of the word
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('e', true, false, true), 'n', true)
+end, { noremap = true, silent = true })
+>>>>>>> ea11b8e (working)

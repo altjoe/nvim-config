@@ -26,7 +26,11 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
+<<<<<<< HEAD
 vim.opt.updatetime = 1000
+=======
+vim.opt.updatetime = 10
+>>>>>>> ea11b8e (working)
 
 vim.opt.colorcolumn = "80"
 vim.opt.clipboard = "unnamedplus"
