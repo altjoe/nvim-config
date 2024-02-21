@@ -28,15 +28,17 @@ vim.keymap.set('n', '<leader>W', function()
     -- if buffer is writeable, write and quit
     if vim.bo.modifiable then
         function format()
-            vim.api.nvim_command("LspZeroFormat")
+            vim.api.nvim_command("Neoformat")
+            -- vim.api.nvim_command("LspZeroFormat")
             vim.api.nvim_command("w")
+            print("Written and formatted")
         end
 
-        local status, err = pcall(format)
-        if not status then
-            -- print "writing without formatting"
+        -- if cant format, just save
+        if not pcall(format) then
             vim.api.nvim_command("w")
-            print("writing without formatting")
+            print("Written and not formatted")
+            
         end
     end
 end)
@@ -107,8 +109,7 @@ vim.keymap.set('n', '<leader>cp', function()
     -- print the file path
     print("Copied to clipboard: " .. file_path)
 end, { noremap = true, silent = true })
-<<<<<<< HEAD
-=======
+
 
 -- select word under cursor in visual mode
 vim.keymap.set('n', '<leader>hw', function()
@@ -123,4 +124,3 @@ vim.keymap.set('n', '<leader>hw', function()
     -- the shortcut e to move to the end of the word
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('e', true, false, true), 'n', true)
 end, { noremap = true, silent = true })
->>>>>>> ea11b8e (working)

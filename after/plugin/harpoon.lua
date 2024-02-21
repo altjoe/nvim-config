@@ -1,5 +1,4 @@
 --vim.api.nvim_create_autocmd({"BufEnter", "FileType" }, t local mark = require("harpoon.mark")
-AutoRoot()
 -- local ui = require("harpoon.ui")
 --
 -- vim.keymap.set("n", "<leader>a", mark.add_file)

@@ -2,7 +2,7 @@ local telescope = require("telescope")
 
 
 -- Neotree
-vim.keymap.set("n", "<leader>pt", -- ":Neotree float<CR>")
+vim.keymap.set("n", "<leader>pt", 
     function()
         -- run the comman 'RooterToggle' to change the working directory to the root of the project
         -- vim.api.nvim_command("RooterToggle")

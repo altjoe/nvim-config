@@ -13,6 +13,12 @@ if vim.fn.expand("%:p") == "" then
     vim.api.nvim_command("e " .. defaultfile)
 end
 
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--     callback = function()
+--         require("lint").try_lint()
+--     end,
+-- })
+
 -- open nvim in normal mode
 -- vim.api.nvim_command("startinsert")
 
