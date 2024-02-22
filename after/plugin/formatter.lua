@@ -13,5 +13,6 @@ require("formatter").setup({
 		-- and will be executed in order
 		lua = { require("formatter.filetypes.lua").stylua },
 		python = { require("formatter.filetypes.python").autopep8 },
+		svelte = { require("formatter.filetypes.svelte").prettier },
 	},
 })
