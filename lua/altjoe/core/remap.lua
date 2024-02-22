@@ -30,6 +30,7 @@ vim.keymap.set("n", "<leader>W", function()
 		function format()
 			-- the command :Format
 			vim.api.nvim_command("Format")
+
 			-- wait for the command to finish
 			vim.wait(100)
 			-- vim.api.nvim_command("LspZeroFormat")
