@@ -12,13 +12,6 @@ require("formatter").setup({
 		-- Formatter configurations for filetype "lua" go here
 		-- and will be executed in order
 		lua = { require("formatter.filetypes.lua").stylua },
-
-		-- Use the special "*" filetype for defining formatter configurations on
-		-- any filetype
-		["*"] = {
-			-- "formatter.filetypes.any" defines default configurations for any
-			-- filetype
-			require("formatter.filetypes.any").remove_trailing_whitespace,
-		},
+		python = { require("formatter.filetypes.python").autopep8 },
 	},
 })

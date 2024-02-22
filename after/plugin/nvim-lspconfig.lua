@@ -1,9 +1,10 @@
 -- Setup language servers.
 local lspconfig = require("lspconfig")
 ---- installed lsp servers
-lspconfig.pyright.setup({})
+lspconfig["pyright"].setup({})
 lspconfig["svelte"].setup({})
 lspconfig["lua_ls"].setup({})
+lspconfig["tsserver"].setup({})
 ---------------------------
 
 -- Global mappings.
