@@ -15,5 +15,6 @@ require("formatter").setup({
 		python = { require("formatter.filetypes.python").autopep8 },
 		svelte = { require("formatter.filetypes.svelte").prettier },
 		rust = { require("formatter.filetypes.rust").rustfmt },
+		gdscript = { require("formatter.filetypes.any").substitute_trailing_whitespace },
 	},
 })

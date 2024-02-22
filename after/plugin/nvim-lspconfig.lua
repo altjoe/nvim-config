@@ -6,7 +6,7 @@ lspconfig["svelte"].setup({})
 lspconfig["lua_ls"].setup({})
 lspconfig["tsserver"].setup({})
 lspconfig["rust_analyzer"].setup({})
-
+lspconfig["gdscript"].setup({})
 ---------------------------
 
 -- Global mappings.
