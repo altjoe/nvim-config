@@ -5,6 +5,8 @@ lspconfig["pyright"].setup({})
 lspconfig["svelte"].setup({})
 lspconfig["lua_ls"].setup({})
 lspconfig["tsserver"].setup({})
+lspconfig["rust_analyzer"].setup({})
+
 ---------------------------
 
 -- Global mappings.

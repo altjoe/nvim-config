@@ -14,5 +14,6 @@ require("formatter").setup({
 		lua = { require("formatter.filetypes.lua").stylua },
 		python = { require("formatter.filetypes.python").autopep8 },
 		svelte = { require("formatter.filetypes.svelte").prettier },
+		rust = { require("formatter.filetypes.rust").rustfmt },
 	},
 })

@@ -94,13 +94,21 @@ vim.api.nvim_set_keymap("n", "<leader>h", ":TSEnable highlight<CR>", { noremap =
 
 -- quick on wg vpn
 -- run the shell command in a new terminal to "sudo wg-quick up home"
+vim.keymap.set("n", "<leader>dvpn", function()
+	-- open a new terminal split to the left and run the command
+	vim.cmd("rightbelow vsplit | terminal sudo wg-quick down home")
+	-- go into insert mode
+	vim.cmd("startinsert")
+end, { noremap = true, silent = true })
+
+-- quick on wg vpn
+-- run the shell command in a new terminal to "sudo wg-quick up home"
 vim.keymap.set("n", "<leader>vpn", function()
 	-- open a new terminal split to the left and run the command
 	vim.cmd("rightbelow vsplit | terminal sudo wg-quick up home")
 	-- go into insert mode
 	vim.cmd("startinsert")
 end, { noremap = true, silent = true })
-
 -- use the keyboard shortcut <leader>cp to copy the current file path to the clipboard
 vim.keymap.set("n", "<leader>cp", function()
 	-- get the current file path
