@@ -1,16 +1,14 @@
 local user = os.getenv("USER")
 print("Hello " .. user)
 
-
 require("altjoe.core")
 require("altjoe.lazy")
 -- require("altjoe.plugins")
 -- autochdir = true
 
-
 local defaultfile = "/home/altjoe/.config/nvim/hello.md"
 if vim.fn.expand("%:p") == "" then
-    vim.api.nvim_command("e " .. defaultfile)
+	vim.api.nvim_command("e " .. defaultfile)
 end
 
 -- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -21,7 +19,6 @@ end
 
 -- open nvim in normal mode
 -- vim.api.nvim_command("startinsert")
-
 
 -- vim.keymap.set("n", "<leader>Pf", function()
 --     print("Searching in " .. vim.fn.expand("~/projects/"))
