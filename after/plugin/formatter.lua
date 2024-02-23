@@ -15,6 +15,7 @@ require("formatter").setup({
 		python = { require("formatter.filetypes.python").autopep8 },
 		svelte = { require("formatter.filetypes.svelte").prettier },
 		rust = { require("formatter.filetypes.rust").rustfmt },
-		gdscript = { require("formatter.filetypes.any").substitute_trailing_whitespace },
+		gdscript = { require("altjoe.formatter.filetypes.gdscript").gdformat },
+		svg = { require("altjoe.formatter.filetypes.svg").prettier },
 	},
 })
