@@ -16,6 +16,7 @@ require("formatter").setup({
 		svelte = { require("formatter.filetypes.svelte").prettier },
 		rust = { require("formatter.filetypes.rust").rustfmt },
 		gdscript = { require("altjoe.formatter.filetypes.gdscript").gdformat },
-		svg = { require("altjoe.formatter.filetypes.svg").prettier },
+        json = { require("formatter.filetypes.json").prettier },
+		-- svg = { require("altjoe.formatter.filetypes.svg").prettier },
 	},
 })

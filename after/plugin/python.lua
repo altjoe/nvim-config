@@ -69,8 +69,8 @@ vim.keymap.set("n", "<leader>tp", function()
 	_Source_config_lua()
 
 	local pathToPython = vim.g.python3_host_prog or "python3"
-
-	vim.cmd("belowright vsplit | terminal " .. pathToPython .. " -m pytest")
+	vim.g.pytest = vim.g.pytest or vim.fn.getcwd()
+	vim.cmd("belowright vsplit | terminal " .. pathToPython .. " -m pytest -s " .. vim.g.pytest)
 end)
 
 --pytest hotkey
@@ -92,13 +92,31 @@ vim.keymap.set("n", "<leader>tip", function()
 		-- use test file to run pytest
 		name = name:gsub(".py", "")
 		test = path .. "/" .. name .. "_test.py"
-		-- else run pytest
 	else
 		test = path .. "/" .. name
 	end
 	print(test)
 
-	vim.cmd("belowright vsplit | terminal " .. pathToPython .. " -m pytest " .. test)
+	vim.cmd("belowright vsplit | terminal " .. pathToPython .. " -m pytest -s " .. test)
 
 	-- vim.cmd("belowright vsplit | terminal " .. pathToPython .. " -m pytest")
+end)
+
+-- run flask with the current file
+vim.keymap.set("n", "<leader>fr", function()
+	vim.cmd("w")
+
+	_Source_config_lua()
+
+	local pathToPython = vim.g.python3_host_prog or "python3"
+
+	-- get current path
+
+	-- export env variables
+	vim.cmd("let $FLASK_APP = '" .. vim.g.flaskapp .. "'")
+
+	vim.cmd(
+		"belowright vsplit | terminal " .. pathToPython .. " -m flask run "
+		-- .. vim.fn.expand("%:t:r")
+	)
 end)

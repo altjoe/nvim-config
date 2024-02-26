@@ -48,14 +48,6 @@ function AutoRootDefaultToFilePath()
 	-- file path
 	local file_dir = vim.fn.expand("%:p:h")
 
-	while not CheckIfRoot(file_dir) do
-		file_dir = GoUp(file_dir)
-		if file_dir == "/" then
-			print("No root directory found")
-			return
-		end
-	end
-
 	vim.cmd("cd " .. file_dir)
 	print("Changed directory to " .. file_dir)
 end
@@ -63,4 +55,10 @@ end
 -- keybind for <leader>to use autodefault
 vim.keymap.set("n", "<leader>dw", function()
 	AutoRoot()
+end, { noremap = true, silent = true })
+
+-- keybind for <leader>to use autodefault
+vim.keymap.set("n", "<leader>dc", function()
+	-- set root for current buffer
+	AutoRootDefaultToFilePath()
 end, { noremap = true, silent = true })
