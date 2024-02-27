@@ -35,13 +35,39 @@ vim.keymap.set("n", "<leader>W", function()
 			vim.wait(100)
 			-- vim.api.nvim_command("LspZeroFormat")
 			vim.api.nvim_command("w")
-			print("Written and formatted")
+			print("Written and formatted", os.time())
 		end
 
 		-- if cant format, just save
 		if not pcall(format) then
 			vim.api.nvim_command("w")
-			print("Written and not formatted")
+			print("Written and not formatted", os.time())
+		end
+	end
+end)
+
+-- simple format save, and source
+vim.keymap.set("n", "<leader><M-W>", function()
+	-- if buffer is writeable, write and quit
+	if vim.bo.modifiable then
+		function format()
+			-- the command :Format
+			vim.api.nvim_command("Format")
+
+			-- wait for the command to finish
+			vim.wait(100)
+			-- vim.api.nvim_command("LspZeroFormat")
+			vim.api.nvim_command("w")
+
+			vim.api.nvim_command(":so")
+			print("Written, formatted, and sourced", os.time())
+		end
+
+		-- if cant format, just save
+		if not pcall(format) then
+			vim.api.nvim_command("w")
+			vim.api.nvim_command(":so")
+			print("Written, sourced, and not formatted", os.time())
 		end
 	end
 end)

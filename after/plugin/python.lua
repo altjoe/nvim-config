@@ -61,6 +61,7 @@ vim.keymap.set("n", "<Tab>rp", function()
 	vim.cmd("belowright vsplit | terminal " .. pathToPython .. " %")
 end)
 
+---- pytest to run in current working directory
 --pytest hotkey
 --split to new terminal and run pytest
 vim.keymap.set("n", "<leader>tp", function()
@@ -73,6 +74,7 @@ vim.keymap.set("n", "<leader>tp", function()
 	vim.cmd("belowright vsplit | terminal " .. pathToPython .. " -m pytest -s " .. vim.g.pytest)
 end)
 
+---- pytest to run the test for the current file
 --pytest hotkey
 --split to new terminal and run pytest
 vim.keymap.set("n", "<leader>tip", function()
@@ -118,5 +120,44 @@ vim.keymap.set("n", "<leader>fr", function()
 	vim.cmd(
 		"belowright vsplit | terminal " .. pathToPython .. " -m flask run "
 		-- .. vim.fn.expand("%:t:r")
+	)
+end)
+-- pytest to run for the current function
+vim.keymap.set("n", "<leader>tf", function()
+	vim.api.nvim_input("W")
+
+	_Source_config_lua()
+
+	local currentpos = vim.fn.getpos(".")
+	print("Current position: ", currentpos)
+
+	local foundDefinition = vim.fn.search("def ", "bW")
+	if foundDefinition == 0 then
+		print("No function definition found")
+		return
+	end
+
+	print("Found function definition at line: " .. foundDefinition)
+
+	local currentLine = vim.fn.getline(foundDefinition)
+
+	local function_name = currentLine:match("def (%w+)")
+
+	local test_functionname = "test_" .. function_name
+	local currentpath = vim.fn.expand("%:p:h")
+	local currentfile = vim.fn.expand("%:t")
+	currentfile = currentfile:gsub(".py", "")
+
+	local currenttestpath = currentpath .. "/" .. currentfile .. "_test.py"
+
+	print("Running test for function: " .. test_functionname, "in file:", currenttestpath)
+
+	vim.cmd(
+		"belowright vsplit | terminal "
+			.. vim.g.python3_host_prog
+			.. " -m pytest "
+			.. currenttestpath
+			.. " -k "
+			.. test_functionname
 	)
 end)
