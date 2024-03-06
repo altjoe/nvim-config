@@ -27,15 +27,22 @@ vim.keymap.set("n", "q", function()
 	else
 		if vim.bo.buftype == "terminal" then
 			print("quitting terminal")
-			--  go into insert mode
-			vim.api.nvim_command("startinsert")
-			-- if process is running, kill it
-			-- type <C-c> to kill the process
-			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c>", true, true, true), "i", true)
-			vim.wait(100)
-			vim.api.nvim_command("stopinsert")
 
-			vim.api.nvim_command("q")
+			-- Enter insert mode
+			vim.api.nvim_command("startinsert")
+
+			-- Send <C-c> to potentially stop any running process
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c>", true, true, true), "i", false)
+
+			-- Function to delay and then quit
+			local function delayed_quit()
+				vim.defer_fn(function()
+					vim.api.nvim_command("q")
+				end, 200) -- Adjust delay as necessary (in milliseconds)
+			end
+
+			-- Call the delayed_quit function
+			delayed_quit()
 		end
 	end
 end)
