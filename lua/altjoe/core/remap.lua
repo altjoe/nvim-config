@@ -11,6 +11,7 @@ vim.keymap.set("n", "q", function()
 	-- if buffer is writeable, write and quit
 	-- else just quit
 	if vim.bo.modifiable then
+		print("Modifiable")
 		-- if not a terminal buffer
 		if vim.bo.buftype == "" then
 			local filename = vim.fn.expand("%:t")
@@ -18,9 +19,22 @@ vim.keymap.set("n", "q", function()
 				vim.api.nvim_command("w")
 			end
 		end
-	end
 
-	vim.api.nvim_command("q")
+		vim.api.nvim_command("q")
+	else
+		if vim.bo.buftype == "terminal" then
+			print("quitting terminal")
+			--  go into insert mode
+			vim.api.nvim_command("startinsert")
+			-- if process is running, kill it
+			-- type <C-c> to kill the process
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c>", true, true, true), "i", true)
+			vim.wait(100)
+			vim.api.nvim_command("stopinsert")
+
+			vim.api.nvim_command("q")
+		end
+	end
 end)
 
 -- Simple format and save
