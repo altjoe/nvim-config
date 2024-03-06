@@ -6,6 +6,9 @@ vim.g.mapleader = " "
 -- Escaping from insert mode with jk
 vim.api.nvim_set_keymap("i", "jk", "<Esc>", { noremap = true, silent = true })
 
+-- Excaping for visual mode with nm
+vim.api.nvim_set_keymap("v", "nm", "<Esc>", { noremap = true, silent = true })
+
 -- Simple quit window
 vim.keymap.set("n", "q", function()
 	-- if buffer is writeable, write and quit
