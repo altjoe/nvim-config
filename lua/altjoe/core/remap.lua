@@ -26,6 +26,7 @@ vim.keymap.set("n", "q", function()
 		vim.api.nvim_command("q")
 	else
 		if vim.bo.buftype == "terminal" then
+			local currentbuf = vim.api.nvim_get_current_buf()
 			print("quitting terminal")
 
 			-- Enter insert mode
@@ -37,7 +38,11 @@ vim.keymap.set("n", "q", function()
 			-- Function to delay and then quit
 			local function delayed_quit()
 				vim.defer_fn(function()
-					vim.api.nvim_command("q")
+					local testcurrentbuf = vim.api.nvim_get_current_buf()
+					if currentbuf == testcurrentbuf then
+						print("quitting terminal")
+						vim.api.nvim_command("q")
+					end
 				end, 200) -- Adjust delay as necessary (in milliseconds)
 			end
 
