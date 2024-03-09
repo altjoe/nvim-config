@@ -4,7 +4,13 @@ vim.keymap.set("n", "<Tab>wr", function()
 
 	_Source_config_lua()
 	--on-busy-update=restart
-	vim.cmd("belowright vsplit | terminal " .. "watchexec -r -e rs 'cargo run' ")
+	local dirs_to_watch = vim.g.dirs_to_watch or { "src", "tests" }
+	local to_watch = " -- "
+	for _, dir in ipairs(dirs_to_watch) do
+		to_watch = to_watch .. " -w " .. dir
+	end
+
+	vim.cmd("belowright vsplit | terminal " .. "watchexec -r -e rs 'cargo run'" .. to_watch)
 end)
 
 vim.keymap.set("n", "<Tab>rr", function()
