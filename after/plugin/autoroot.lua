@@ -8,6 +8,11 @@ function CheckIfRoot(path)
 	if result == 1 then
 		return true
 	end
+	-- chechf if config.lua is in the path
+	result = vim.fn.filereadable(path .. "/config.lua")
+	if result == 1 then
+		return true
+	end
 	return false
 end
 

@@ -7,6 +7,8 @@ lspconfig["lua_ls"].setup({})
 lspconfig["tsserver"].setup({})
 lspconfig["rust_analyzer"].setup({})
 lspconfig["gdscript"].setup({})
+lspconfig["sqls"].setup({})
+
 ---------------------------
 
 -- Global mappings.
