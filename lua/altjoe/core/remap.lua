@@ -13,6 +13,9 @@ vim.api.nvim_set_keymap("v", "nm", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("n", "q", function()
 	-- if buffer is writeable, write and quit
 	-- else just quit
+	local wincount = vim.fn.winnr("$")
+
+	print("Buffer count: ", wincount)
 	if vim.bo.modifiable then
 		print("Modifiable")
 		-- if not a terminal buffer
@@ -22,8 +25,17 @@ vim.keymap.set("n", "q", function()
 				vim.api.nvim_command("w")
 			end
 		end
+		if wincount == 1 then
+			-- get user input for y or n
+			local input = vim.fn.input("Quit? (y/n): ")
+			if input == "y" then
+				vim.api.nvim_command("q")
+			end
+		else
+			-- print("Buffer count: ", wincount)
 
-		vim.api.nvim_command("q")
+			vim.api.nvim_command("q")
+		end
 	else
 		if vim.bo.buftype == "terminal" then
 			local currentbuf = vim.api.nvim_get_current_buf()
@@ -40,8 +52,18 @@ vim.keymap.set("n", "q", function()
 				vim.defer_fn(function()
 					local testcurrentbuf = vim.api.nvim_get_current_buf()
 					if currentbuf == testcurrentbuf then
-						print("quitting terminal")
-						vim.api.nvim_command("q")
+						if wincount == 1 then
+							-- get user input for y or n
+							local input = vim.fn.input("Quit? (y/n): ")
+							if input == "y" then
+								print("quitting terminal")
+								vim.api.nvim_command("q")
+							end
+						else
+							print("quitting terminal")
+							-- print("Buffer count: " .. wincount)
+							vim.api.nvim_command("q")
+						end
 					end
 				end, 200) -- Adjust delay as necessary (in milliseconds)
 			end
@@ -164,6 +186,7 @@ vim.keymap.set("n", "<leader>vpn", function()
 	-- go into insert mode
 	vim.cmd("startinsert")
 end, { noremap = true, silent = true })
+
 -- use the keyboard shortcut <leader>cp to copy the current file path to the clipboard
 vim.keymap.set("n", "<leader>cp", function()
 	-- get the current file path
@@ -187,3 +210,6 @@ vim.keymap.set("n", "<leader>hw", function()
 	-- the shortcut e to move to the end of the word
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("e", true, false, true), "n", true)
 end, { noremap = true, silent = true })
+
+-- keymap for leader nr and leader na for setting number relative and number absolute
+vim.keymap.set("n", "<leader>nr", ":set relativenumber!<CR>", { noremap = true, silent = true })

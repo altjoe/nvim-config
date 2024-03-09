@@ -11,6 +11,8 @@ if vim.fn.expand("%:p") == "" then
 	vim.api.nvim_command("e " .. defaultfile)
 end
 
+--set hidden
+
 -- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 --     callback = function()
 --         require("lint").try_lint()
