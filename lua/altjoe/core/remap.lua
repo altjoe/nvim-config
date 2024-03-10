@@ -213,3 +213,7 @@ end, { noremap = true, silent = true })
 
 -- keymap for leader nr and leader na for setting number relative and number absolute
 vim.keymap.set("n", "<leader>nr", ":set relativenumber!<CR>", { noremap = true, silent = true })
+
+-- leader based window splite vertical and horizontal leader wv and leader wh
+vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>wh", ":split<CR>", { noremap = true, silent = true })
