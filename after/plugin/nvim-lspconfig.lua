@@ -1,4 +1,5 @@
 -- Setup language servers.
+
 local lspconfig = require("lspconfig")
 ---- installed lsp servers
 lspconfig["pyright"].setup({})
@@ -7,8 +8,38 @@ lspconfig["lua_ls"].setup({})
 lspconfig["tsserver"].setup({})
 lspconfig["rust_analyzer"].setup({})
 lspconfig["gdscript"].setup({})
-lspconfig["sqls"].setup({})
 
+function load_sqls_connections()
+	_Source_config_lua()
+	if vim.g.sqls_driver == nil then
+		vim.g.sqls_driver = "postgresql"
+	end
+
+	if vim.g.sqls_url == nil then
+		vim.g.sqls_url = "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
+	end
+	print(vim.g.sqls_driver)
+	print(vim.g.sqls_url)
+	return {
+		{
+			driver = vim.g.sqls_driver,
+			dataSourceName = vim.g.sqls_url,
+		},
+	}
+end
+-- root_dir is the config.lua file
+
+lspconfig["sqls"].setup({
+	connections = function() end,
+	cmd = { "sqls" },
+	root_dir = lspconfig.util.root_pattern("config.lua"),
+	settings = {
+		sqls = {
+			connections = load_sqls_connections(),
+		},
+	},
+})
+-- lspconfig["sqlfluff"].setup({})
 ---------------------------
 
 -- Global mappings.

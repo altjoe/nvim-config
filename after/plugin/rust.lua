@@ -10,13 +10,24 @@ vim.keymap.set("n", "<Tab>wr", function()
 		to_watch = to_watch .. " -w " .. dir
 	end
 
-	vim.cmd("belowright vsplit | terminal " .. "watchexec -r -e rs 'cargo run'" .. to_watch)
+	-- if the current file is in the bin directory, then we should run the binary instead of the project binary
+	local binary = vim.g.project_binary
+	if binary == nil then
+		print("project_binary is not set")
+		return
+	end
+
+	vim.cmd("belowright vsplit | terminal " .. "watchexec -r -e rs 'cargo run --bin " .. binary .. "'" .. to_watch)
 end)
 
 vim.keymap.set("n", "<Tab>rr", function()
 	vim.cmd("w")
 
 	_Source_config_lua()
-
-	vim.cmd("belowright vsplit | terminal " .. "cargo run")
+	local binary = vim.g.project_binary
+	if binary == nil then
+		vim.cmd("belowright vsplit | terminal " .. "cargo run")
+		return
+	end
+	vim.cmd("belowright vsplit | terminal " .. "cargo run --bin " .. binary)
 end)
