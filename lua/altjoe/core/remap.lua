@@ -161,7 +161,11 @@ vim.keymap.set("v", "<leader>hh", function()
 end)
 
 -- restart copilot service
-vim.keymap.set("n", "<leader>co", ":Copilot! toggle<CR>", { silent = true })
+vim.keymap.set("n", "<leader>co", function() 
+    -- Copilot !toggle
+    vim.api.nvim_command("Copilot !toggle")
+    vim.api.nvim_command("Copilot status <CR>")
+end)
 
 -- annoying keys that i hit so remap to nothing
 vim.api.nvim_set_keymap("n", "L", "", { noremap = true })

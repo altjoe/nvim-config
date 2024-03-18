@@ -1,4 +1,5 @@
 print("Loading lazy config...")
+USER = vim.fn.expand("$USER")
 
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -15,7 +16,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("altjoe.plugins")
+require("lazy").setup(USER .. ".plugins")
 local ok, treesitter = pcall(require, "nvim-treesitter.configs")
 if ok then
     treesitter.setup({

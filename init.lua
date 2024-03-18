@@ -14,15 +14,21 @@ function _Source_config_lua()
 	return true
 end
 
-local user = os.getenv("USER")
-print("Hello " .. user)
+-- local user = os.getenv("USER")
+-- print("Hello " .. user)
+USER = vim.fn.expand("$USER")
+print("Hello " .. USER)
 
-require("altjoe.core")
-require("altjoe.lazy")
+require(USER .. ".core")
+require(USER .. ".lazy")
+
+-- require("altjoe.core")
+-- require("altjoe.lazy")
 -- require("altjoe.plugins")
 -- autochdir = true
 
-local defaultfile = "/home/altjoe/.config/nvim/hello.md"
+-- local defaultfile = "/home/altjoe/.config/nvim/hello.md"
+local defaultfile = "/home/" .. USER .. "/.config/nvim/hello.md"
 if vim.fn.expand("%:p") == "" then
 	vim.api.nvim_command("e " .. defaultfile)
 end

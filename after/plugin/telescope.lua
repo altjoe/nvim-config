@@ -17,7 +17,7 @@ end)
 
 vim.keymap.set("n", "<leader>puf", function()
 	-- find_command = { 'find', '/', '-type', 'f', '-not', '-path', '*/\\.*', '-maxdepth', '3' },
-	local userdir = "/home/altjoe"
+	local userdir = "/home/" .. USER
 	builtin.find_files({
 		prompt_title = "Search files",
 		find_command = {

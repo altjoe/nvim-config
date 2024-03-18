@@ -1,6 +1,6 @@
 -- Utilities for creating configurations
 local util = require("formatter.util")
-
+USER = vim.fn.expand("$USER")
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup({
 	-- Enable or disable logging
@@ -15,7 +15,8 @@ require("formatter").setup({
 		python = { require("formatter.filetypes.python").autopep8 },
 		svelte = { require("formatter.filetypes.svelte").prettier },
 		rust = { require("formatter.filetypes.rust").rustfmt },
-		gdscript = { require("altjoe.formatter.filetypes.gdscript").gdformat },
+        gd = { require(USER .. ".formatter.filetypes.gdscript").gdformat },
+		-- gdscript = { require("altjoe.formatter.filetypes.gdscript").gdformat },
 		json = { require("formatter.filetypes.json").prettier },
 		sql = { require("formatter.filetypes.sql").pgformat },
 	},
