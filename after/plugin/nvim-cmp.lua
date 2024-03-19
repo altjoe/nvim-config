@@ -31,10 +31,10 @@ cmp.setup({
 		-- { name = 'snippy' }, -- For snippy users.
 	}, {
 		{ name = "buffer" },
+		{ name = "path" },
+		{ name = "treesitter" },
 	}),
 })
-
-
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
