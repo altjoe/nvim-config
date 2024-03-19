@@ -16,6 +16,8 @@ vim.keymap.set("n", "q", function()
 	local wincount = vim.fn.winnr("$")
 
 	print("Buffer count: ", wincount)
+	print("Modifiable: ", vim.bo.modifiable, "buftype: ", vim.bo.buftype, "filetype: ", vim.bo.filetype)
+
 	if vim.bo.modifiable then
 		print("Modifiable")
 		-- if not a terminal buffer
@@ -36,7 +38,17 @@ vim.keymap.set("n", "q", function()
 
 			vim.api.nvim_command("q")
 		end
+	elseif vim.bo.filetype == "dbout" then
+		if wincount == 1 then
+			local input = vim.fn.input("Quit? (y/n): ")
+			if input == "y" then
+				vim.api.nvim_command("q")
+			end
+		else
+			vim.api.nvim_command("q")
+		end
 	else
+		-- if terminal buffer or preview window
 		if vim.bo.buftype == "terminal" then
 			local currentbuf = vim.api.nvim_get_current_buf()
 			print("quitting terminal")
@@ -161,10 +173,11 @@ vim.keymap.set("v", "<leader>hh", function()
 end)
 
 -- restart copilot service
-vim.keymap.set("n", "<leader>co", function() 
-    -- Copilot !toggle
-    vim.api.nvim_command("Copilot !toggle")
-    vim.api.nvim_command("Copilot status <CR>")
+vim.keymap.set("n", "<leader>co", function()
+	-- Copilot !toggle
+	vim.api.nvim_command("Copilot !toggle")
+
+	vim.api.nvim_command("Copilot status <CR>")
 end)
 
 -- annoying keys that i hit so remap to nothing

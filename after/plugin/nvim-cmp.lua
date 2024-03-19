@@ -27,11 +27,14 @@ cmp.setup({
 		-- { name = "vsnip" }, -- For vsnip users.
 		{ name = "luasnip" }, -- For luasnip users.
 		-- { name = 'ultisnips' }, -- For ultisnips users.
+		{ name = "vim-dadbod-completion" },
 		-- { name = 'snippy' }, -- For snippy users.
 	}, {
 		{ name = "buffer" },
 	}),
 })
+
+
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {

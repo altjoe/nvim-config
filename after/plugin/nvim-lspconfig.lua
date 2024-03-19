@@ -29,16 +29,16 @@ function load_sqls_connections()
 end
 -- root_dir is the config.lua file
 
-lspconfig["sqls"].setup({
-	connections = function() end,
-	cmd = { "sqls" },
-	root_dir = lspconfig.util.root_pattern("config.lua"),
-	settings = {
-		sqls = {
-			connections = load_sqls_connections(),
-		},
-	},
-})
+-- lspconfig["sqls"].setup({
+-- 	connections = function() end,
+-- 	cmd = { "sqls" },
+-- 	root_dir = lspconfig.util.root_pattern("config.lua"),
+-- 	settings = {
+-- 		sqls = {
+-- 			connections = load_sqls_connections(),
+-- 		},
+-- 	},
+-- })
 -- lspconfig["sqlfluff"].setup({})
 ---------------------------
 

@@ -25,9 +25,23 @@ vim.keymap.set("n", "<Tab>rr", function()
 
 	_Source_config_lua()
 	local binary = vim.g.project_binary
+
+	local currentfile = vim.fn.expand("%:t:r")
+	local currentpath = vim.fn.expand("%:p:h")
+
+	-- if bin in path, then run the binary
+	if string.find(currentpath, "bin") then
+		print("running binary")
+		vim.cmd("belowright vsplit | terminal " .. "cargo run --bin " .. currentfile)
+		return
+	end
+
 	if binary == nil then
 		vim.cmd("belowright vsplit | terminal " .. "cargo run")
 		return
+	else
+		vim.cmd("belowright vsplit | terminal " .. "cargo run --bin " .. binary)
 	end
-	vim.cmd("belowright vsplit | terminal " .. "cargo run --bin " .. binary)
+
+	-- vim.cmd("belowright vsplit | terminal " .. "cargo run
 end)
