@@ -8,6 +8,8 @@ lspconfig["lua_ls"].setup({})
 lspconfig["tsserver"].setup({})
 lspconfig["rust_analyzer"].setup({})
 lspconfig["gdscript"].setup({})
+lspconfig["gopls"].setup({})
+
 
 function load_sqls_connections()
 	_Source_config_lua()
