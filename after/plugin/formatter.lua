@@ -19,5 +19,6 @@ require("formatter").setup({
 		-- gdscript = { require("altjoe.formatter.filetypes.gdscript").gdformat },
 		json = { require("formatter.filetypes.json").prettier },
 		sql = { require("formatter.filetypes.sql").pgformat },
+        go = { require("formatter.filetypes.go").gofmt },
 	},
 })
