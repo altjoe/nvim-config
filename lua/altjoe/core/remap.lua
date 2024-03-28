@@ -10,7 +10,7 @@ vim.api.nvim_set_keymap("i", "jk", "<Esc>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "nm", "<Esc>", { noremap = true, silent = true })
 
 -- Simple quit window
-vim.keymap.set("n", "q", function()
+vim.keymap.set("n", "Q", function()
 	-- if buffer is writeable, write and quit
 	-- else just quit
 	local wincount = vim.fn.winnr("$")
@@ -163,21 +163,13 @@ vim.keymap.set("v", "<leader>hh", function()
 
 		vim.cmd("/" .. text)
 		vim.defer_fn(function()
-			local replace = vim.fn.input("Replace: ")
+			local replace = vim.fn.input("Replace: ", text)
 			if replace == "" then
 				return
 			end
 			vim.api.nvim_command(":%s/" .. text .. "/" .. replace .. "/g")
 		end, 10) -- 10ms delay
 	end, 10) -- 10ms delay
-end)
-
--- restart copilot service
-vim.keymap.set("n", "<leader>co", function()
-	-- Copilot !toggle
-	vim.api.nvim_command("Copilot !toggle")
-
-	vim.api.nvim_command("Copilot status <CR>")
 end)
 
 -- annoying keys that i hit so remap to nothing
