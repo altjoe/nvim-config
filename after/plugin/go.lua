@@ -39,3 +39,14 @@ vim.keymap.set("n", "<tab>gg", function()
     print(currentpath)
     vim.cmd("belowright vsplit | terminal cd " .. currentpath .. " && go generate")
 end)
+
+
+-- keybind for leader tg for running go test on the current file
+vim.keymap.set("n", "<leader>tg", function()
+    -- split terminal to the right
+    -- get go file name
+    -- local currentfile = vim.fn.expand("%:p")
+    local currentpath = vim.fn.expand("%:p:h")
+    print(currentpath)
+    vim.cmd("belowright vsplit | terminal cd " .. currentpath .. " && go test .")
+end)

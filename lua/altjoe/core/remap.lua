@@ -16,7 +16,7 @@ vim.keymap.set("n", "Q", function()
 	local wincount = vim.fn.winnr("$")
 
 	print("Buffer count: ", wincount)
-	-- print("Modifiable: ", vim.bo.modifiable, "buftype: ", vim.bo.buftype, "filetype: ", vim.bo.filetype)
+	print("Modifiable: ", vim.bo.modifiable, "buftype: ", vim.bo.buftype, "filetype: ", vim.bo.filetype)
 
 	if vim.bo.modifiable then
 		print("Modifiable")
@@ -82,10 +82,9 @@ vim.keymap.set("n", "Q", function()
 
 			-- Call the delayed_quit function
 			delayed_quit()
-        else
-            -- try to quit
-            vim.api.nvim_command("q")
-
+		else
+			-- try to quit
+			vim.api.nvim_command("q")
 		end
 	end
 end)

@@ -12,7 +12,16 @@ vim.keymap.set("n", "<leader>pf", function()
 end)
 -- vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set("n", "<leader>ps", function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+	-- builtin.grep_string({ search = vim.fn.input("Grep > ") })
+	local currentworkingdir = vim.fn.getcwd()
+
+	builtin.live_grep({
+		prompt_title = "Search files",
+		find_command = { "rg", "--full-path", currentworkingdir, "--type", "f" },
+		-- find_command = { 'fdfind', '--full-path', current_file_path_parent, 'hidden', '--exclude', '.git', '--exclude', '.cache', '--exclude', '.local', '--exclude', '.npm', '--exclude', '.cargo', '--max-depth', '5' }
+		-- find_command = { 'find', '.use_libuv_file_watcher', '-type', 'f', '-not', '-path', '*/.git/*'}
+		-- find_command = { 'find', '/', '-type', 'f', '-not', '-path', '*/\\.*', '-maxdepth', '3' },
+	})
 end)
 
 vim.keymap.set("n", "<leader>puf", function()
