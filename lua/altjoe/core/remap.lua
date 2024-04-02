@@ -1,3 +1,10 @@
+-- restart lsp keybind
+vim.keymap.set("n", "<leader>rl", function()
+    vim.api.nvim_command("LspRestart")
+    print("LSP Restarted")
+end)
+
+
 print("Sourcing remap.lua")
 -- This is a function to source the config.lua file in the python project's working directory
 
