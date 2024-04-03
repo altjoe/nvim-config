@@ -55,6 +55,9 @@ vim.keymap.set("n", "<leader>gm", function()
 	-- split terminal to the right
 	-- get go file name
 	-- local currentfile = vim.fn.expand("%:p")
+	--
+	-- check if the cli migrate is installed
+
 	local source = vim.g.migrate_source or "file://migrations"
 	local database = vim.g.migrate_database or "postgres://postgres:postgres@localhost:5432/postgres"
 	print(source)

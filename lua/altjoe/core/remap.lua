@@ -235,3 +235,17 @@ vim.keymap.set("n", "<leader>nr", ":set relativenumber!<CR>", { noremap = true, 
 -- leader based window splite vertical and horizontal leader wv and leader wh
 vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>wh", ":split<CR>", { noremap = true, silent = true })
+
+-- keymap to add the current working directory structure to the clipboard using the tree cli
+vim.keymap.set("n", "<leader>yt", function()
+	-- get the current working directory
+	local cwd = vim.fn.getcwd()
+	-- run the tree command to get the directory structure
+	local tree = vim.fn.systemlist("tree " .. cwd)
+	-- convert the tree to a string
+	local tree_str = table.concat(tree, "\n")
+	-- copy the tree to the clipboard
+	vim.fn.setreg("+", tree_str)
+	-- print the tree
+	print("Copied tree to clipboard :)")
+end, { noremap = true, silent = true })
