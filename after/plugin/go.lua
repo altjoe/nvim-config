@@ -48,3 +48,48 @@ vim.keymap.set("n", "<leader>tg", function()
 	print(currentpath)
 	vim.cmd("belowright vsplit | terminal cd " .. currentpath .. " && go test -v ./...")
 end)
+
+-- vim go migration
+vim.keymap.set("n", "<leader>gm", function()
+	_Source_config_lua()
+	-- split terminal to the right
+	-- get go file name
+	-- local currentfile = vim.fn.expand("%:p")
+	local source = vim.g.migrate_source or "file://migrations"
+	local database = vim.g.migrate_database or "postgres://postgres:postgres@localhost:5432/postgres"
+	print(source)
+	print(database)
+
+	local currentpath = vim.fn.expand("%:p:h")
+	vim.cmd(
+		"belowright vsplit | terminal cd "
+			.. currentpath
+			.. " && migrate -source "
+			.. source
+			.. " -database "
+			.. database
+			.. " up"
+	)
+end)
+
+vim.keymap.set("n", "<leader>gmd", function()
+	_Source_config_lua()
+	-- split terminal to the right
+	-- get go file name
+	-- local currentfile = vim.fn.expand("%:p")
+	local source = vim.g.migrate_source or "file://migrations"
+	local database = vim.g.migrate_database or "postgres://postgres:postgres@localhost:5432/postgres"
+	print(source)
+	print(database)
+
+	local currentpath = vim.fn.expand("%:p:h")
+	vim.cmd(
+		"belowright vsplit | terminal cd "
+			.. currentpath
+			.. " && migrate -source "
+			.. source
+			.. " -database "
+			.. database
+			.. " down"
+	)
+end)
