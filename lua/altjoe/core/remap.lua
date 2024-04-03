@@ -1,9 +1,8 @@
 -- restart lsp keybind
 vim.keymap.set("n", "<leader>rl", function()
-    vim.api.nvim_command("LspRestart")
-    print("LSP Restarted")
+	vim.api.nvim_command("LspRestart")
+	print("LSP Restarted")
 end)
-
 
 print("Sourcing remap.lua")
 -- This is a function to source the config.lua file in the python project's working directory
@@ -174,9 +173,6 @@ vim.keymap.set("v", "<leader>hh", function()
 		vim.cmd("/" .. text)
 		vim.defer_fn(function()
 			local replace = vim.fn.input("Replace: ", text)
-			if replace == "" then
-				return
-			end
 			vim.api.nvim_command(":%s/" .. text .. "/" .. replace .. "/g")
 		end, 10) -- 10ms delay
 	end, 10) -- 10ms delay
