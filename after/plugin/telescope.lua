@@ -24,6 +24,29 @@ vim.keymap.set("n", "<leader>ps", function()
 	})
 end)
 
+-- search devdocs
+
+-- vim.keymap.set("n", "<leader>pdd", function()
+-- 	local devdocsdir = "/home/" .. USER .. "/.local/share/nvim/devdocs/docs"
+-- 	local currentFileType = vim.bo.filetype
+-- 	for _, dir in ipairs(vim.fn.globpath(devdocsdir, "*", false, 1)) do
+-- 		-- if the current file type is in the devdocs directory string
+-- 		print("dir", dir)
+-- 		if string.find(dir, currentFileType) then
+-- 			--
+-- 			-- local dirtosearch = devdocsdir .. "/" .. currentFileType
+-- 			print("found", dir)
+-- 			builtin.live_grep({
+-- 				prompt_title = "Search files",
+-- 				cwd = dir,
+-- 				-- find_command = { "rg", "--full-path", dir, "--type", "f" },
+-- 				find_command = { "rg", "--files", "--hidden", "--ignore-case", "--glob", "!.git" },
+-- 			})
+-- 			return
+-- 		end
+-- 	end
+-- end)
+
 vim.keymap.set("n", "<leader>puf", function()
 	-- find_command = { 'find', '/', '-type', 'f', '-not', '-path', '*/\\.*', '-maxdepth', '3' },
 	local userdir = "/home/" .. USER

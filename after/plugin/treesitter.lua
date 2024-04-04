@@ -13,6 +13,7 @@ require("nvim-treesitter.configs").setup({
 		"rust",
 		"markdown",
 		"sql",
+		"go",
 	},
 	highlight = {
 		enable = true,
