@@ -9,25 +9,26 @@ lspconfig["tsserver"].setup({})
 lspconfig["rust_analyzer"].setup({})
 lspconfig["gdscript"].setup({})
 lspconfig["gopls"].setup({})
+lspconfig["typos_lsp"].setup({})
 
-function load_sqls_connections()
-	_Source_config_lua()
-	if vim.g.sqls_driver == nil then
-		vim.g.sqls_driver = "postgresql"
-	end
-
-	if vim.g.sqls_url == nil then
-		vim.g.sqls_url = "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
-	end
-	print(vim.g.sqls_driver)
-	print(vim.g.sqls_url)
-	return {
-		{
-			driver = vim.g.sqls_driver,
-			dataSourceName = vim.g.sqls_url,
-		},
-	}
-end
+-- function load_sqls_connections()
+-- 	_Source_config_lua()
+-- 	if vim.g.sqls_driver == nil then
+-- 		vim.g.sqls_driver = "postgresql"
+-- 	end
+--
+-- 	if vim.g.sqls_url == nil then
+-- 		vim.g.sqls_url = "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
+-- 	end
+-- 	print(vim.g.sqls_driver)
+-- 	print(vim.g.sqls_url)
+-- 	return {
+-- 		{
+-- 			driver = vim.g.sqls_driver,
+-- 			dataSourceName = vim.g.sqls_url,
+-- 		},
+-- 	}
+-- end
 
 -- root_dir is the config.lua file
 

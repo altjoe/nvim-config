@@ -108,7 +108,7 @@ function AutoRoot()
 end
 
 -- keybind for <leader>to use autodefault
-vim.keymap.set("n", "<leader>dd", function()
+vim.keymap.set("n", "<leader>1", function()
 	AutoRoot()
 end, { noremap = true, silent = true })
 
