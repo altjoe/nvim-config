@@ -98,26 +98,61 @@ vim.keymap.set("n", "Q", function()
 	end
 end)
 
--- Simple format and save
-vim.keymap.set("n", "<leader>W", function()
+-- -- Simple format and save
+-- vim.keymap.set("n", "W", function()
+-- 	-- if buffer is writeable, write and quit
+-- 	if vim.bo.modifiable then
+-- 		function format()
+-- 			-- the command :Format
+--
+-- 			vim.api.nvim_command("Format")
+--
+-- 			-- vim.api.nvim_command("LspZeroFormat")
+-- 			vim.api.nvim_command("w")
+-- 			print("Written and formatted", os.time())
+-- 		end
+--
+-- 		-- if cant format, just save
+-- 		if not pcall(format) then
+-- 			vim.api.nvim_command("w")
+-- 			print("Written and not formatted", os.time())
+-- 		end
+-- 	end
+-- end)
+
+vim.keymap.set("n", "w", function()
 	-- if buffer is writeable, write and quit
 	if vim.bo.modifiable then
-		function format()
-			-- the command :Format
-			vim.api.nvim_command("Format")
+		vim.api.nvim_command("w")
+		print("Written: ", os.time())
+	end
+end)
 
-			-- wait for the command to finish
-			vim.wait(100)
-			-- vim.api.nvim_command("LspZeroFormat")
+vim.keymap.set("n", "W", function()
+	-- Check if buffer is modifiable
+	if vim.bo.modifiable then
+		-- Define a local function to format and save
+		local function format_and_save()
+			-- Try to execute the :Format command
+			local success, _ = pcall(vim.api.nvim_command, "Format")
+			if not success then
+				print("Formatting failed")
+				return false
+			end
+
+			-- Save the buffer
 			vim.api.nvim_command("w")
 			print("Written and formatted", os.time())
+			return true
 		end
 
-		-- if cant format, just save
-		if not pcall(format) then
+		-- Attempt to format and save, if it fails, just save
+		if not format_and_save() then
 			vim.api.nvim_command("w")
-			print("Written and not formatted", os.time())
+			print("Written without formatting", os.time())
 		end
+	else
+		print("Buffer is not modifiable")
 	end
 end)
 

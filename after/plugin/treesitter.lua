@@ -14,6 +14,7 @@ require("nvim-treesitter.configs").setup({
 		"markdown",
 		"sql",
 		"go",
+		"templ",
 	},
 	highlight = {
 		enable = true,
@@ -29,5 +30,8 @@ require("nvim-treesitter.configs").setup({
 			-- scope_incremental = "<C-M-m>",
 			node_decremental = "<M-n>",
 		},
+	},
+	filetype = {
+		templ = "html",
 	},
 })

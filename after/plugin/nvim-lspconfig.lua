@@ -3,14 +3,37 @@
 local lspconfig = require("lspconfig")
 ---- installed lsp servers
 lspconfig["pyright"].setup({})
-lspconfig["svelte"].setup({})
+lspconfig["svelte"].setup({
+	cmd = { "svelteserver", "--stdio" },
+})
 lspconfig["lua_ls"].setup({})
 lspconfig["tsserver"].setup({})
 lspconfig["rust_analyzer"].setup({})
 lspconfig["gdscript"].setup({})
-lspconfig["gopls"].setup({})
+lspconfig["gopls"].setup({
+	filetypes = { "go" },
+})
 lspconfig["typos_lsp"].setup({})
+lspconfig["docker_compose_language_service"].setup({
+	cmd = { "docker-compose-langserver", "--stdio" },
+	filetypes = { "yaml", "yml" },
+	rootdir = lspconfig.util.root_pattern("docker-compose.yaml", "docker-compose.prod.yaml", "docker-compose.dev.yaml"),
+})
+lspconfig["dockerls"].setup({
+	cmd = { "docker-langserver", "--stdio" },
+	filetypes = { "Dockerfile", "dockerfile" },
+	root_dir = lspconfig.util.root_pattern("Dockerfile.dev", "Dockerfile.prod", "Dockerfile"),
+})
 
+lspconfig["templ"].setup({
+	filetypes = { "templ" },
+	cmd = { "templ", "lsp" },
+})
+lspconfig["html"].setup({
+	filetypes = { "html", "templ" },
+})
+
+--
 -- function load_sqls_connections()
 -- 	_Source_config_lua()
 -- 	if vim.g.sqls_driver == nil then

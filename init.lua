@@ -28,10 +28,10 @@ require(USER .. ".lazy")
 -- autochdir = true
 
 -- local defaultfile = "/home/altjoe/.config/nvim/hello.md"
-local defaultfile = "/home/" .. USER .. "/.config/nvim/hello.md"
-if vim.fn.expand("%:p") == "" then
-	vim.api.nvim_command("e " .. defaultfile)
-end
+-- local defaultfile = "/home/" .. USER .. "/.config/nvim/hello.md"
+-- if vim.fn.expand("%:p") == "" then
+-- 	vim.api.nvim_command("e " .. defaultfile)
+-- end
 
 --set hidden
 

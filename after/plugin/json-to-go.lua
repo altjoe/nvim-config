@@ -56,4 +56,4 @@ function Url_to_go()
 end
 --"https://api.kraken.com/0/public/OHLC?pair=BTCUSD&interval=1"
 vim.keymap.set("n", "2g", json_to_go, { noremap = true, silent = true })
-vim.keymap.set("n", "u2g", Url_to_go, { noremap = true, silent = true })
+vim.keymap.set("n", "U2g", Url_to_go, { noremap = true, silent = true })
