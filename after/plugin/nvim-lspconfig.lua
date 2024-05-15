@@ -7,11 +7,21 @@ lspconfig["svelte"].setup({
 	cmd = { "svelteserver", "--stdio" },
 })
 lspconfig["lua_ls"].setup({})
-lspconfig["tsserver"].setup({})
+lspconfig["tsserver"].setup({
+	filetypes = {
+		"javascript",
+		"templ",
+		"javascriptreact",
+		"javascript.js",
+		"typescript",
+		"typescriptreact",
+		"typescript.ts",
+	},
+})
 lspconfig["rust_analyzer"].setup({})
 lspconfig["gdscript"].setup({})
 lspconfig["gopls"].setup({
-	filetypes = { "go" },
+	filetypes = { "go", "templ" },
 })
 lspconfig["typos_lsp"].setup({})
 lspconfig["docker_compose_language_service"].setup({
@@ -31,6 +41,12 @@ lspconfig["templ"].setup({
 })
 lspconfig["html"].setup({
 	filetypes = { "html", "templ" },
+	cmd = { "vscode-html-language-server", "--stdio" },
+})
+
+lspconfig["tailwindcss"].setup({
+	cmd = { "tailwindcss-language-server" },
+	filetypes = { "html", "templ", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact" },
 })
 
 --

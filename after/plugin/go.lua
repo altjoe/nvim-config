@@ -24,9 +24,8 @@ vim.keymap.set("n", "<tab>ra", function()
 	-- split terminal to the right
 	-- get go file name
 	-- local currentfile = vim.fn.expand("%:p")
-	local currentpath = vim.fn.expand("%:p:h")
-	print(currentpath)
-	vim.cmd("belowright vsplit | terminal cd " .. currentpath .. " && air")
+	local cwd = vim.fn.getcwd()
+	vim.cmd("belowright vsplit | terminal cd " .. cwd .. " && air")
 end)
 
 -- keybind for tab gg for running go generate

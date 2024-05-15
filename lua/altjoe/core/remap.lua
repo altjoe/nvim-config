@@ -20,83 +20,115 @@ vim.api.nvim_set_keymap("t", "jk", "<C-\\><C-n>", { noremap = true, silent = tru
 
 -- Simple quit window
 vim.keymap.set("n", "Q", function()
-	-- if buffer is writeable, write and quit
-	-- else just quit
-	local wincount = vim.fn.winnr("$")
+	local buftype = vim.bo.buftype
+	print(buftype)
+	-- if editable - write and quit
+	-- if not editable - just quit
 
-	print("Buffer count: ", wincount)
-	print("Modifiable: ", vim.bo.modifiable, "buftype: ", vim.bo.buftype, "filetype: ", vim.bo.filetype)
+	function writeSave()
+		vim.api.nvim_command("wq")
+	end
 
-	if vim.bo.modifiable then
-		print("Modifiable")
-		-- if not a terminal buffer
-		if vim.bo.buftype == "" then
-			local filename = vim.fn.expand("%:t")
-			if filename ~= "" then
-				vim.api.nvim_command("w")
-			end
-		end
-		if wincount == 1 then
-			-- get user input for y or n
-			local input = vim.fn.input("Quit? (y/n): ")
-			if input == "y" then
-				vim.api.nvim_command("q")
-			end
-		else
-			-- print("Buffer count: ", wincount)
-
-			vim.api.nvim_command("q")
-		end
-	elseif vim.bo.filetype == "dbout" then
-		if wincount == 1 then
-			local input = vim.fn.input("Quit? (y/n): ")
-			if input == "y" then
-				vim.api.nvim_command("q")
-			end
+	if buftype == "" then
+		if pcall(writeSave) then
+			print("Written and Quit")
 		else
 			vim.api.nvim_command("q")
 		end
-	else
-		-- if terminal buffer or preview window
-		if vim.bo.buftype == "terminal" then
-			local currentbuf = vim.api.nvim_get_current_buf()
-			print("quitting terminal")
+	elseif buftype == "terminal" then
+		print("quitting terminal")
+		-- start insert mode
+		vim.api.nvim_command("startinsert")
+		-- send <C-c> to potentially stop any running process
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c>", true, true, true), "i", false)
 
-			-- Enter insert mode
-			vim.api.nvim_command("startinsert")
-
-			-- Send <C-c> to potentially stop any running process
-			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c>", true, true, true), "i", false)
-
-			-- Function to delay and then quit
-			local function delayed_quit()
-				vim.defer_fn(function()
-					local testcurrentbuf = vim.api.nvim_get_current_buf()
-					if currentbuf == testcurrentbuf then
-						if wincount == 1 then
-							-- get user input for y or n
-							local input = vim.fn.input("Quit? (y/n): ")
-							if input == "y" then
-								print("quitting terminal")
-								vim.api.nvim_command("q")
-							end
-						else
-							print("quitting terminal")
-							-- print("Buffer count: " .. wincount)
-							vim.api.nvim_command("q")
-						end
-					end
-				end, 200) -- Adjust delay as necessary (in milliseconds)
-			end
-
-			-- Call the delayed_quit function
-			delayed_quit()
-		else
-			-- try to quit
-			vim.api.nvim_command("q")
-		end
+		-- term codes "<C-\\><C-n>"
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true), "n", true)
+		vim.api.nvim_command("bd!")
+	else --if vim.fn.winnr("$") == 1 or buftype == "dbout" then
+		vim.api.nvim_command("q")
 	end
 end)
+
+-- Simple quit window
+-- vim.keymap.set("n", "Q", function()
+-- 	-- if buffer is writeable, write and quit
+-- 	-- else just quit
+-- 	local wincount = vim.fn.winnr("$")
+--
+-- 	print("Buffer count: ", wincount)
+-- 	print("Modifiable: ", vim.bo.modifiable, "buftype: ", vim.bo.buftype, "filetype: ", vim.bo.filetype)
+--
+-- 	if vim.bo.modifiable then
+-- 		print("Modifiable")
+-- 		-- if not a terminal buffer
+-- 		if vim.bo.buftype == "" then
+-- 			local filename = vim.fn.expand("%:t")
+-- 			if filename ~= "" then
+-- 				vim.api.nvim_command("w")
+-- 			end
+-- 		end
+-- 		if wincount == 1 then
+-- 			-- get user input for y or n
+-- 			local input = vim.fn.input("Quit? (y/n): ")
+-- 			if input == "y" then
+-- 				vim.api.nvim_command("q")
+-- 			end
+-- 		else
+-- 			-- print("Buffer count: ", wincount)
+--
+-- 			vim.api.nvim_command("q")
+-- 		end
+-- 	elseif vim.bo.filetype == "dbout" then
+-- 		if wincount == 1 then
+-- 			local input = vim.fn.input("Quit? (y/n): ")
+-- 			if input == "y" then
+-- 				vim.api.nvim_command("q")
+-- 			end
+-- 		else
+-- 			vim.api.nvim_command("q")
+-- 		end
+-- 	else
+-- 		-- if terminal buffer or preview window
+-- 		if vim.bo.buftype == "terminal" then
+-- 			local currentbuf = vim.api.nvim_get_current_buf()
+-- 			print("quitting terminal")
+--
+-- 			-- Enter insert mode
+-- 			vim.api.nvim_command("startinsert")
+--
+-- 			-- Send <C-c> to potentially stop any running process
+-- 			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c>", true, true, true), "i", false)
+--
+-- 			-- Function to delay and then quit
+-- 			local function delayed_quit()
+-- 				vim.defer_fn(function()
+-- 					local testcurrentbuf = vim.api.nvim_get_current_buf()
+-- 					if currentbuf == testcurrentbuf then
+-- 						if wincount == 1 then
+-- 							-- get user input for y or n
+-- 							local input = vim.fn.input("Quit? (y/n): ")
+-- 							if input == "y" then
+-- 								print("quitting terminal")
+-- 								vim.api.nvim_command("q")
+-- 							end
+-- 						else
+-- 							print("quitting terminal")
+-- 							-- print("Buffer count: " .. wincount)
+-- 							vim.api.nvim_command("q")
+-- 						end
+-- 					end
+-- 				end, 200) -- Adjust delay as necessary (in milliseconds)
+-- 			end
+--
+-- 			-- Call the delayed_quit function
+-- 			delayed_quit()
+-- 		else
+-- 			-- try to quit
+-- 			vim.api.nvim_command("q")
+-- 		end
+-- 	end
+-- end)
 
 -- -- Simple format and save
 -- vim.keymap.set("n", "W", function()
@@ -120,7 +152,7 @@ end)
 -- 	end
 -- end)
 
-vim.keymap.set("n", "w", function()
+vim.keymap.set("n", "<M-w>", function()
 	-- if buffer is writeable, write and quit
 	if vim.bo.modifiable then
 		vim.api.nvim_command("w")
@@ -129,57 +161,8 @@ vim.keymap.set("n", "w", function()
 end)
 
 vim.keymap.set("n", "W", function()
-	-- Check if buffer is modifiable
-	if vim.bo.modifiable then
-		-- Define a local function to format and save
-		local function format_and_save()
-			-- Try to execute the :Format command
-			local success, _ = pcall(vim.api.nvim_command, "Format")
-			if not success then
-				print("Formatting failed")
-				return false
-			end
-
-			-- Save the buffer
-			vim.api.nvim_command("w")
-			print("Written and formatted", os.time())
-			return true
-		end
-
-		-- Attempt to format and save, if it fails, just save
-		if not format_and_save() then
-			vim.api.nvim_command("w")
-			print("Written without formatting", os.time())
-		end
-	else
-		print("Buffer is not modifiable")
-	end
-end)
-
--- simple format save, and source
-vim.keymap.set("n", "<leader><M-W>", function()
-	-- if buffer is writeable, write and quit
-	if vim.bo.modifiable then
-		function format()
-			-- the command :Format
-			vim.api.nvim_command("Format")
-
-			-- wait for the command to finish
-			vim.wait(100)
-			-- vim.api.nvim_command("LspZeroFormat")
-			vim.api.nvim_command("w")
-
-			vim.api.nvim_command(":so")
-			print("Written, formatted, and sourced", os.time())
-		end
-
-		-- if cant format, just save
-		if not pcall(format) then
-			vim.api.nvim_command("w")
-			vim.api.nvim_command(":so")
-			print("Written, sourced, and not formatted", os.time())
-		end
-	end
+	vim.api.nvim_command("w")
+	print("Written", os.time())
 end)
 
 -- Simple escape from terminal mode

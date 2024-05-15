@@ -13,5 +13,6 @@ vim.keymap.set("n", "<leader>co", function()
 	else
 		vim.api.nvim_command("Copilot! detach")
 	end
+
 	vim.api.nvim_command("Copilot status")
 end)

@@ -7,5 +7,8 @@ rm -rf ~/.fonts/Lekton*
 
 unzip _constants/Lekton.zip -d ~/.fonts/
 
+sudo apt install luarocks
+sudo apt install lua5.4
+
 
 fc-cache -fv

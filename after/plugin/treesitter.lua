@@ -1,6 +1,7 @@
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
-		"dockerfile",
+		-- "dockerfile",
+		"hurl",
 		"svelte",
 		"lua",
 		"javascript",
@@ -31,7 +32,8 @@ require("nvim-treesitter.configs").setup({
 			node_decremental = "<M-n>",
 		},
 	},
-	filetype = {
-		templ = "html",
-	},
+	-- filetype = {
+	-- 	-- templ = "html",
+	-- 	html = "templ",
+	-- },
 })

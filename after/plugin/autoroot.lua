@@ -112,6 +112,12 @@ vim.keymap.set("n", "<leader>1", function()
 	AutoRoot()
 end, { noremap = true, silent = true })
 
+vim.keymap.set("n", "<leader>2", function()
+	-- set root to user home
+	print("Setting root to home")
+	vim.cmd("cd ~")
+end, { noremap = true, silent = true })
+
 vim.keymap.set("n", "<leader>dc", function()
 	-- set root for current buffer
 	AutoRootDefaultToFilePath()

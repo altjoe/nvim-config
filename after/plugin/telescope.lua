@@ -23,6 +23,21 @@ vim.keymap.set("n", "<leader>ps", function()
 		-- find_command = { 'find', '/', '-type', 'f', '-not', '-path', '*/\\.*', '-maxdepth', '3' },
 	})
 end)
+-- remap select to <CR>
+-- when in a quickfix window, <CR> will open the file in the quickfix window
+-- with :cc <cursorline>
+-- vim.keymap.set("n", "<CR>", function()
+-- 	windowtype = vim.fn.getwinvar(0, "&filetype")
+-- 	if windowtype == "qf" then
+-- 		local cursorline = vim.fn.line(".")
+-- 		vim.cmd("cc " .. cursorline)
+-- 		-- move cursor to the quickfix window
+-- 		vim.cmd("wincmd p")
+-- 	else
+-- 		builtin.select_default()
+-- 	end
+-- 	print("windowtype", windowtype)
+-- end)
 
 -- search devdocs
 
@@ -95,5 +110,19 @@ vim.keymap.set("n", "<leader>prf", function()
 		},
 		-- find_command = { 'find', '.', '-type', 'f', '-not', '-path', '*/.git/*'}
 		-- find_command = { 'find', '/', '-type', 'f', '-not', '-path', '*/\\.*', '-maxdepth', '3' },
+	})
+end)
+
+vim.keymap.set("n", "tf", function()
+	local cwd = vim.fn.getcwd()
+	local clipboard = vim.fn.getreg("+")
+
+	builtin.grep_string({
+		prompt_title = "Grep clipboard",
+		find_command = { "rg", "--full-path", cwd, "--type", "f" },
+		-- find_command = { 'fdfind', '--full-path', current_file_path_parent, 'hidden', '--exclude', '.git', '--exclude', '.cache', '--exclude', '.local', '--exclude', '.npm', '--exclude', '.cargo', '--max-depth', '5' }
+		-- find_command = { 'find', '.use_libuv_file_watcher', '-type', 'f', '-not', '-path', '*/.git/*'}
+		-- find_command = { 'find', '/', '-type', 'f', '-not', '-path', '*/\\.*', '-maxdepth', '3' },
+		default_text = clipboard,
 	})
 end)
