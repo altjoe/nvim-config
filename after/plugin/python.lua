@@ -8,14 +8,17 @@ vim.keymap.set("n", "<Leader>st", function()
 	vim.cmd("startinsert")
 
 	_Source_config_lua()
-
-	-- if CONDA_NAME is not nil
-	if vim.env.CONDA_NAME ~= nil then
-		print("Conda environment detected: " .. vim.env.CONDA_NAME)
-		local conda = "conda activate " .. vim.env.CONDA_NAME .. "<CR>"
+	-- vim.g.CONDA_NAME = "SYSTEM"
+	if vim.g.CONDA_NAME == "SYSTEM" then
+		print("Environment detected: SYSTEM")
+		local conda = "conda deactivate<CR>"
+		vim.api.nvim_input(conda)
+	elseif vim.g.CONDA_NAME ~= nil then
+		print("Conda environment detected: " .. vim.g.CONDA_NAME)
+		local conda = "conda activate " .. vim.g.CONDA_NAME .. "<CR>"
 		vim.api.nvim_input(conda)
 	else
-		vim.env.CONDA_NAME = "base"
+		vim.g.CONDA_NAME = "base"
 		print("Conda environment not detected, using base")
 	end
 
@@ -24,15 +27,25 @@ vim.keymap.set("n", "<Leader>st", function()
 	vim.api.nvim_input(cwd)
 end)
 
--- Split terminal horizontally and run the activate python file
-vim.keymap.set("n", "<Tab>hrp", function()
+-- -- Split terminal horizontall and run the activate python file
+-- vim.keymap.set("n", "<Tab>hrp", function()
+-- 	vim.cmd("w")
+--
+-- 	_Source_config_lua()
+--
+-- 	local pathToPython = vim.g.python3_host_prog or "python3"
+--
+-- 	vim.cmd("belowright split | terminal " .. pathToPython .. " %")
+-- end)
+vim.keymap.set("n", "<Tab>rsp", function()
 	vim.cmd("w")
 
 	_Source_config_lua()
 
-	local pathToPython = vim.g.python3_host_prog or "python3"
+	local pathToPython = vim.g.python_host_prog or "python3"
+	print("Path to python: ", pathToPython)
 
-	vim.cmd("belowright split | terminal " .. pathToPython .. " %")
+	vim.cmd("belowright vsplit | terminal sudo " .. pathToPython .. " %")
 end)
 
 -- Split terminal vertically and run the activate python file
@@ -41,7 +54,8 @@ vim.keymap.set("n", "<Tab>rp", function()
 
 	_Source_config_lua()
 
-	local pathToPython = vim.g.python3_host_prog or "python3"
+	local pathToPython = vim.g.python_host_prog or "python3"
+	print("Path to python: ", pathToPython)
 
 	vim.cmd("belowright vsplit | terminal " .. pathToPython .. " %")
 end)
@@ -113,8 +127,8 @@ vim.keymap.set("n", "<leader>tf", function()
 
 	_Source_config_lua()
 
-	local currentpos = vim.fn.getpos(".")
-	print("Current position: ", currentpos)
+	local currentposition = vim.fn.getpos(".")
+	print("Current position: ", currentposition)
 
 	local foundDefinition = vim.fn.search("def ", "bW")
 	if foundDefinition == 0 then

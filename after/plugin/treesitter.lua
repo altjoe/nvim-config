@@ -16,6 +16,7 @@ require("nvim-treesitter.configs").setup({
 		"sql",
 		"go",
 		"templ",
+		"c",
 	},
 	highlight = {
 		enable = true,
@@ -36,4 +37,7 @@ require("nvim-treesitter.configs").setup({
 	-- 	-- templ = "html",
 	-- 	html = "templ",
 	-- },
+	filetype = {
+		h = "c",
+	},
 })

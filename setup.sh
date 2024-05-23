@@ -9,6 +9,6 @@ unzip _constants/Lekton.zip -d ~/.fonts/
 
 sudo apt install luarocks
 sudo apt install lua5.4
-
+sudo apt-get install clang
 
 fc-cache -fv

@@ -1,4 +1,3 @@
-
 function _Source_config_lua()
 	print("Sourcing config.lua...")
 	-- if already sourced return
@@ -24,3 +23,14 @@ USER = vim.fn.expand("$USER")
 print("Hello " .. USER)
 require(USER .. ".core")
 require(USER .. ".lazy")
+
+vim.deprecate = function() end
+--  set splitright
+vim.opt.splitright = true
+
+-- source a sibling file luarocks.lua
+-- :lua print(require("rocks"))
+
+---rocks.nvim
+--
+---

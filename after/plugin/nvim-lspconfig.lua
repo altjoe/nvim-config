@@ -6,7 +6,15 @@ lspconfig["pyright"].setup({})
 lspconfig["svelte"].setup({
 	cmd = { "svelteserver", "--stdio" },
 })
-lspconfig["lua_ls"].setup({})
+lspconfig["lua_ls"].setup({
+	diagnostics = {
+		-- Get the language server to recognize the `vim` global
+		globals = {
+			"vim",
+			"require",
+		},
+	},
+})
 lspconfig["tsserver"].setup({
 	filetypes = {
 		"javascript",
@@ -47,6 +55,10 @@ lspconfig["html"].setup({
 lspconfig["tailwindcss"].setup({
 	cmd = { "tailwindcss-language-server" },
 	filetypes = { "html", "templ", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+})
+lspconfig["clangd"].setup({
+	cmd = { "clangd", "--background-index" },
+	filetypes = { "c", "cpp", "h", "hpp" },
 })
 
 --

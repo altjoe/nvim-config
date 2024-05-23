@@ -11,6 +11,9 @@ require("conform").setup({
 
 		javascript = { "biome" },
 		tmpl = { "templ" },
+		-- IndentWidth: 4
+		c = { "clang-format" },
+		http = { "prettier" },
 	},
 	format_on_save = {
 		-- These options will be passed to conform.format()

@@ -1,3 +1,8 @@
+--
+vim.keymap.set("n", "<leader>so", function()
+	-- source current file
+	vim.api.nvim_command("source %")
+end)
 -- restart lsp keybind
 vim.keymap.set("n", "<leader>rl", function()
 	vim.api.nvim_command("LspRestart")
@@ -33,7 +38,13 @@ vim.keymap.set("n", "Q", function()
 		if pcall(writeSave) then
 			print("Written and Quit")
 		else
-			vim.api.nvim_command("q")
+			local filename = vim.fn.expand("%:t")
+			if filename == "" then
+				vim.api.nvim_command("q!")
+			else
+				vim.api.nvim_command("q")
+				vim.api.nvim_command("q")
+			end
 		end
 	elseif buftype == "terminal" then
 		print("quitting terminal")
