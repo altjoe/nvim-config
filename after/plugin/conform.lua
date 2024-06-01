@@ -14,6 +14,7 @@ require("conform").setup({
 		-- IndentWidth: 4
 		c = { "clang-format" },
 		http = { "prettier" },
+		json = { "prettier" },
 	},
 	format_on_save = {
 		-- These options will be passed to conform.format()
