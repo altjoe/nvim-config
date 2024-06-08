@@ -11,6 +11,7 @@ function _Source_config_lua()
 	end
 
 	vim.cmd("source " .. cwd)
+
 	return true
 end
 

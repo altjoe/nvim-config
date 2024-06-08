@@ -1,5 +1,12 @@
 local cmp = require("cmp")
 
+-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+
+-- An example for configuring `clangd` LSP to use nvim-cmp as a completion engine
+-- require('lspconfig').clangd.setup {
+--   capabilities = capabilities,
+--   ...  -- other lspconfig configs
+-- }
 cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
@@ -23,13 +30,12 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 	}),
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp", trigger_characters = { "-" } },
 		-- { name = "vsnip" }, -- For vsnip users.
 		{ name = "luasnip" }, -- For luasnip users.
 		-- { name = 'ultisnips' }, -- For ultisnips users.
-		{ name = "vim-dadbod-completion" },
+		-- { name = "vim-dadbod-completion" },
 		-- { name = 'snippy' }, -- For snippy users.
-	}, {
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "treesitter" },

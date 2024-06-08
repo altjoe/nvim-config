@@ -1,11 +1,16 @@
 -- Setup language servers.
 
 local lspconfig = require("lspconfig")
+---
+local capabilities = vim.tbl_deep_extend(
+	"force",
+	vim.lsp.protocol.make_client_capabilities(),
+	require("cmp_nvim_lsp").default_capabilities()
+)
+---
 ---- installed lsp servers
 lspconfig["pyright"].setup({})
-lspconfig["svelte"].setup({
-	cmd = { "svelteserver", "--stdio" },
-})
+
 lspconfig["lua_ls"].setup({
 	diagnostics = {
 		-- Get the language server to recognize the `vim` global
@@ -16,6 +21,7 @@ lspconfig["lua_ls"].setup({
 	},
 })
 lspconfig["tsserver"].setup({
+	capabilities = capabilities,
 	filetypes = {
 		"javascript",
 		"templ",
@@ -26,39 +32,65 @@ lspconfig["tsserver"].setup({
 		"typescript.ts",
 	},
 })
-lspconfig["rust_analyzer"].setup({})
-lspconfig["gdscript"].setup({})
+lspconfig["rust_analyzer"].setup({ capabilities = capabilities })
+lspconfig["gdscript"].setup({ capabilities = capabilities })
 lspconfig["gopls"].setup({
+	capabilities = capabilities,
 	filetypes = { "go", "templ" },
 })
-lspconfig["typos_lsp"].setup({})
+-- lspconfig["typos_lsp"].setup({ capabilities = capabilities })
 lspconfig["docker_compose_language_service"].setup({
+	capabilities = capabilities,
 	cmd = { "docker-compose-langserver", "--stdio" },
 	filetypes = { "yaml", "yml" },
 	rootdir = lspconfig.util.root_pattern("docker-compose.yaml", "docker-compose.prod.yaml", "docker-compose.dev.yaml"),
 })
 lspconfig["dockerls"].setup({
+	capabilities = capabilities,
 	cmd = { "docker-langserver", "--stdio" },
 	filetypes = { "Dockerfile", "dockerfile" },
 	root_dir = lspconfig.util.root_pattern("Dockerfile.dev", "Dockerfile.prod", "Dockerfile"),
 })
 
 lspconfig["templ"].setup({
+	capabilities = capabilities,
 	filetypes = { "templ" },
 	cmd = { "templ", "lsp" },
 })
+
+lspconfig["tailwindcss"].setup({ -- tailwind lsp requries there to be a tailwind.config.js file in the root of the project, will have to restart nvim to get it to work
+
+	capabilities = capabilities,
+	filetypes = { "css", "scss", "html", "templ" },
+})
+
 lspconfig["html"].setup({
+	capabilities = capabilities,
 	filetypes = { "html", "templ" },
 	cmd = { "vscode-html-language-server", "--stdio" },
 })
 
-lspconfig["tailwindcss"].setup({
-	cmd = { "tailwindcss-language-server" },
-	filetypes = { "html", "templ", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+lspconfig["cssls"].setup({
+	capabilities = capabilities,
+	filetypes = { "css", "scss" },
+	cmd = { "vscode-css-language-server", "--stdio" },
 })
+
+-- lspconfig["unocss"].setup({
+--
+-- 	cmd = { "unocss-language-server", "--stdio" },
+-- 	filetypes = { "html", "templ", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+-- 	root_dir = lspconfig.util.root_pattern(".git", ".env", "config.lua"),
+-- })
 lspconfig["clangd"].setup({
+	capabilities = capabilities,
 	cmd = { "clangd", "--background-index" },
 	filetypes = { "c", "cpp", "h", "hpp" },
+})
+
+lspconfig["cmake"].setup({
+	capabilities = capabilities,
+	filetypes = { "cmake" },
 })
 
 --

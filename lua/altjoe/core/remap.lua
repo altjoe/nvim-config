@@ -172,8 +172,18 @@ vim.keymap.set("n", "<M-w>", function()
 end)
 
 vim.keymap.set("n", "W", function()
+	_Source_config_lua()
 	vim.api.nvim_command("w")
 	print("Written", os.time())
+	print(vim.g.onsave)
+	if vim.g.onsave then
+		print("Running onsave command: ", vim.g.onsave)
+		vim.api.nvim_command(vim.g.onsave)
+		-- wait a second then enter to close cmd window
+		vim.defer_fn(function()
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", true)
+		end, 1000)
+	end
 end)
 
 -- Simple escape from terminal mode
