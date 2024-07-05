@@ -14,7 +14,6 @@ function _Source_config_lua()
 
 	return true
 end
-
 --
 
 vim.opt.shell = "/usr/bin/fish"
@@ -29,9 +28,5 @@ vim.deprecate = function() end
 --  set splitright
 vim.opt.splitright = true
 
--- source a sibling file luarocks.lua
--- :lua print(require("rocks"))
-
----rocks.nvim
---
----
+-- fold level 99
+vim.opt.foldlevel = 99

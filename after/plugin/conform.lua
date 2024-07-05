@@ -1,3 +1,20 @@
+function FormatNeorg()
+	local save_cursor = vim.fn.getpos(".")
+
+	-- move cursor to top of file
+	vim.fn.cursor(1, 0)
+
+	--  use = to format G to move to end of file
+
+	vim.cmd("normal! gg=G")
+
+	-- move cursor back to original position
+	vim.fn.setpos(".", save_cursor)
+end
+
+-- autocmd on .norg files
+vim.cmd("autocmd BufWritePre *.norg lua FormatNeorg()")
+
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
@@ -15,6 +32,13 @@ require("conform").setup({
 		c = { "clang-format" },
 		http = { "prettier" },
 		json = { "prettier" },
+		-- norg = { "norg-fmt" },
+	},
+	formatters = {
+		["norg-fmt"] = {
+			command = "norg-fmt",
+			stdin = true,
+		},
 	},
 	format_on_save = {
 		-- These options will be passed to conform.format()
